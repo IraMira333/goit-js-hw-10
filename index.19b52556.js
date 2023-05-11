@@ -1,0 +1,2 @@
+!function(){function n(n){return fetch("".concat("https://restcountries.com/v3.1/name/").concat(n,"?fields=name,capital,population,flags,languages\n  ")).then((function(n){return n.json()}))}document.querySelector("#search-box").addEventListener("input",(function(n){console.log(n.target.value)})),console.log(n),n("Ukraine").then((function(n){return console.log(n)}))}();
+//# sourceMappingURL=index.19b52556.js.map
