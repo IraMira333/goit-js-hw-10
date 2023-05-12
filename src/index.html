@@ -7,8 +7,19 @@
     <title>Homework 10</title>
   </head>
   <body>
+    <style>
+      .list {
+        list-style: none;
+      }
+      .country-list-item,
+      .country-info-title {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 10px;
+      }
+    </style>
     <input type="text" id="search-box" />
-    <ul class="country-list"></ul>
+    <ul class="country-list list"></ul>
     <div class="country-info"></div>
 
     <script src="index.js" type="module"></script>
