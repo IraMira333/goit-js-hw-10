@@ -1,7 +1,12 @@
 const URL = 'https://restcountries.com/v3.1/name/';
 function fetchCountries(name) {
   return fetch(`${URL}${name}?fields=name,capital,population,flags,languages
-  `).then(resp => resp.json());
+  `).then(resp => {
+    if (!resp.ok) {
+      throw new Error(onError);
+    }
+    return resp.json();
+  });
 }
 
 export { fetchCountries };
