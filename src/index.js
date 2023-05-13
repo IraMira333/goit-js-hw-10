@@ -25,10 +25,14 @@ function onFetchCountries(evt) {
     .then(result => {
       console.log(result.length);
       if (result.length > 10) {
+        listEl.innerHTML = '';
+        cardEl.innerHTML = '';
         return tooManyCountries(result);
       }
       if (result.length === 1) {
         const markup = markupCard(result);
+        console.log(markup);
+        console.log(result);
         return updateCard(markup);
       }
       if (result.length > 1) {
@@ -59,9 +63,9 @@ function markupList(arrCountries) {
     .map(
       ({
         name: { official },
-        flags: { svg },
+        flags: { svg, alt },
       }) => `<li class='country-list-item'>
-    <img class='flag-icon' src='${svg}' alt='Flag of ${official}' width='60'>
+    <img class='flag-icon' src='${svg}' alt='${alt}' height='60'>
     <h2 class='country-list-title'>${official}</h2>
   </li>`
     )
@@ -73,16 +77,15 @@ function markupCard(arrCountries) {
     .map(
       ({
         name: { official },
-        flags: { svg },
+        flags: { svg, alt },
         capital,
         population,
-        languages,
-      }) => `<div class='country-info-title'><img src='${svg}' alt='Flag of ${official}' width='60'>
+      }) => `<div class='country-info-title'><img src='${svg}' alt='${alt}' height='60'>
   <h1>${official}</h1></div>
   <ul class='list country-info-list'>
     <li>Capital: ${capital}</li>
     <li>Population: ${population}</li>
-    <li>Languages: ${languages}</li>
+    <li>Languages: ${Object.values(arrCountries[0].languages).join(', ')}</li>
   </ul>`
     )
     .join('');
