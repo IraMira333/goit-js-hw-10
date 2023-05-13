@@ -31,8 +31,6 @@ function onFetchCountries(evt) {
       }
       if (result.length === 1) {
         const markup = markupCard(result);
-        console.log(markup);
-        console.log(result);
         return updateCard(markup);
       }
       if (result.length > 1) {
