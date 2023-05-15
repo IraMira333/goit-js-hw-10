@@ -1,5 +1,5 @@
 import './css/styles.css';
-import { onError } from './error.js';
+
 import { fetchCountries } from './fetchCountries.js';
 import { Notify } from 'notiflix';
 import debounce from 'lodash.debounce';
