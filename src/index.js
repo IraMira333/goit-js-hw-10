@@ -39,19 +39,18 @@ function onFetchCountries(evt) {
     })
 
     .catch(err => {
-      console.log('Second');
       console.log(err);
-      clearAll();
-      if (err.status === '404') {
-        onError(err);
-        console.log('hi');
+      console.log(err.message);
+      if (err.message === 'Not Found') {
+        return onError();
       }
-      console.log(err.status);
       Notify.failure(err.message);
     });
 }
 console.log(fetchCountries);
-
+function onError(err) {
+  Notify.failure('Oops, there is no country with that name');
+}
 function tooManyCountries(result) {
   return Notify.info(
     'Too many matches found. Please enter a more specific name.'
