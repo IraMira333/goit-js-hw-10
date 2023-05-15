@@ -39,6 +39,7 @@ function onFetchCountries(evt) {
     })
 
     .catch(err => {
+      clearAll();
       console.log(err);
       console.log(err.message);
       if (err.message === 'Not Found') {
