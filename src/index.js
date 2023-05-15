@@ -1,4 +1,5 @@
 import './css/styles.css';
+import { onError } from './error.js';
 import { fetchCountries } from './fetchCountries.js';
 import { Notify } from 'notiflix';
 import debounce from 'lodash.debounce';
@@ -17,23 +18,21 @@ function onFetchCountries(evt) {
   console.log(evt.target.value);
   let nameCountry = evt.target.value.trim();
   if (nameCountry === '') {
-    listEl.innerHTML = '';
-    cardEl.innerHTML = '';
+    clearAll();
     return;
   }
   fetchCountries(nameCountry)
     .then(result => {
       console.log(result.length);
       if (result.length > 10) {
-        listEl.innerHTML = '';
-        cardEl.innerHTML = '';
+        clearAll();
         return tooManyCountries(result);
       }
       if (result.length === 1) {
         const markup = markupCard(result);
         return updateCard(markup);
       }
-      if (result.length > 1) {
+      if ((result.length >= 2) & (result.length <= 10)) {
         const markup = markupList(result);
         return updateList(markup);
       }
@@ -41,7 +40,14 @@ function onFetchCountries(evt) {
 
     .catch(err => {
       console.log('Second');
-      onError(err);
+      console.log(err);
+      clearAll();
+      if (err.status === '404') {
+        onError(err);
+        console.log('hi');
+      }
+      console.log(err.status);
+      Notify.failure(err.massege);
     });
 }
 console.log(fetchCountries);
@@ -50,10 +56,6 @@ function tooManyCountries(result) {
   return Notify.info(
     'Too many matches found. Please enter a more specific name.'
   );
-}
-
-function onError(err) {
-  Notify.failure('Oops, there is no country with that name');
 }
 
 function markupList(arrCountries) {
@@ -96,5 +98,10 @@ function updateCard(markup) {
 
 function updateList(markup) {
   listEl.innerHTML = markup;
+  cardEl.innerHTML = '';
+}
+
+function clearAll() {
+  listEl.innerHTML = '';
   cardEl.innerHTML = '';
 }
