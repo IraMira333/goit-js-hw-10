@@ -47,7 +47,7 @@ function onFetchCountries(evt) {
         console.log('hi');
       }
       console.log(err.status);
-      Notify.failure(err.massege);
+      Notify.failure(err.message);
     });
 }
 console.log(fetchCountries);
